@@ -3,15 +3,15 @@ import random
 class BaseballGame:
 
     def __init__(self):
-        self.random = BaseballGame.generateRandom()
+        self.randNum = BaseballGame.generateRandom()
 
     @staticmethod
     def generateRandom():
         numList = [1,2,3,4,5,6,7,8]
-        while True:
+        randNum = []
+        while len(randNum) != 3:
             randNum = list(set(random.sample(numList, 3)))
-            if len(randNum) == 3:
-                return randNum
+        return randNum
 
     def compareLists(self, userInput, randNum):
         userInputSet = set(userInput)
@@ -38,10 +38,10 @@ class BaseballGame:
     def isStrike(self, strike, ball):
         return strike == 3
 
-    def round(self, random):
+    def round(self, randNum):
         userInput = list(map(int, list(input("숫자를 입력해주세요 ex)123 : "))))
-        strike = self.getStrikeCount(userInput, random)
-        ball = self.getBallCount(userInput, random)
+        strike = self.getStrikeCount(userInput, randNum)
+        ball = self.getBallCount(userInput, randNum)
         self.displayResult(strike, ball)
         if self.isStrike(strike, ball):
             print("3개의 숫자를 모두 맞히셨습니다! 게임 종료")
@@ -49,6 +49,6 @@ class BaseballGame:
         return False
 
     def play(self):
-        print("컴퓨터의 숫자 : {}".format(self.random))
-        while self.round(self.random) == False:
+        print("컴퓨터의 숫자 : {}".format(self.randNum))
+        while self.round(self.randNum) == False:
             continue
